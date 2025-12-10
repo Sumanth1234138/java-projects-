@@ -1,0 +1,52 @@
+public class Matrix {
+    private int[][] data;
+    private int rows;
+    private int cols;
+
+    public Matrix(int rows, int cols) {
+        this.rows = rows;
+        this.cols = cols;
+        this.data = new int[rows][cols];
+    }
+
+    public void set(int row, int col, int value) {
+        data[row][col] = value;
+    }
+
+    public int get(int row, int col) {
+        return data[row][col];
+    }
+
+    public Matrix add(Matrix other) {
+        Matrix result = new Matrix(rows, cols);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                result.set(i, j, this.get(i, j) + other.get(i, j));
+            }
+        }
+        return result;
+    }
+
+    public Matrix multiply(Matrix other) {
+        Matrix result = new Matrix(rows, other.cols);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < other.cols; j++) {
+                int sum = 0;
+                for (int k = 0; k < cols; k++) {
+                    sum += this.get(i, k) * other.get(k, j);
+                }
+                result.set(i, j, sum);
+            }
+        }
+        return result;
+    }
+
+    public void print() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                System.out.print(data[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
